@@ -2,8 +2,8 @@ from Tkinter import Tk, Canvas, Frame, BOTH
 
 class RoomDisplay(Frame):
 
-	room = [[0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0],
-			[0.6, 0.3, 0.0, 0.0, 0.1, 0.0, 0.5]]
+	room = [[0.6, 0.3, 0.0, 0.0, 0.1, 0.0, 0.5],
+			[0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0]]
 
 	def __init__(self, parent):
 		Frame.__init__(self, parent)
@@ -20,9 +20,9 @@ class RoomDisplay(Frame):
 			for grid in xrange(0, len(self.room[level])):
 				# Hard coded numbers at the moment
 				if self.room[level][grid] == 0.0:
-					self.canvas.create_line((grid+1)*50, 50+100*(1+level), (grid+2)*50, 50+100*(1+level), width=2)
+					self.canvas.create_line((grid+1)*50, 50+100*(2-level), (grid+2)*50, 50+100*(2-level), width=2)
 				else:
-					self.canvas.create_rectangle((grid+1)*50, 50+100*(1+level), (grid+2)*50, 50+100*(1+level-self.room[level][grid]), outline="black", fill="black", width=2)
+					self.canvas.create_rectangle((grid+1)*50, 50+100*(2-level), (grid+2)*50, 50+100*(2-level-self.room[level][grid]), outline="black", fill="black", width=2)
 		self.canvas.pack(fill=BOTH, expand=1)
 
 def main():
