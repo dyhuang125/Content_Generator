@@ -82,9 +82,9 @@ class StateMachine():
 							character_two = (min(len(self.stateSpace[newState[1]]), newState[0]+right), newState[1])
 						self.currentState = newState
 						if random.random() > 0.5:
-							return (character_one, character_two)
+							return (character_one, character_two, newState, distance)
 						else:
-							return (character_two, character_one)
+							return (character_two, character_one, newState, distance)
 
 				# Normal
 				if self.currentState[1] >= len(self.stateSpace):
@@ -93,10 +93,20 @@ class StateMachine():
 					character_two = (min(len(self.stateSpace[newState[1]]), newState[0]+right), newState[1])
 				else:
 					if left > newState[0]:
-						character_one = ()
+						character_one = (left-newState[0], newState[1]+1)
+					else:
+						character_one = (newState[0]-left, newState[1])
+					if right+newState[0] >= len(self.stateSpace[self.currentState[1]]):
+						newRight = right+newState[0]-len(self.stateSpace[self.currentState[1]])
+						character_two = (newRight, newState[1]+1)
+					else:
+						character_two = (newState[0]+right, newState[1])
 
 				self.currentState = newState
-				return (character_one, character_two)
+				if random.random() > 0.5:
+					return (character_one, character_two, newState, distance)
+				else:
+					return (character_two, character_one, newState, distance)
 
 	# Calculate weighted distance between 0 and 8
 	def calculate_distance(self):
